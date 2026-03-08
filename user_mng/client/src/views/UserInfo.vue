@@ -29,36 +29,6 @@ const findByNo = async (userNo) => {
   user.value = info;
 };
 
-// 1. [목록] 버튼 클릭 시
-const goToList = () => {
-  // router/index.js에 정의해둔 'userList' (전체회원 목록) 화면으로 이동합니다.
-  router.push({ name: "userList" });
-};
-
-// 2. [삭제] 버튼 클릭 시
-const deleteInfo = async () => {
-  // 삭제는 데이터를 아예 날려버리는 위험한 작업이므로, 사용자에게 한 번 더 물어보는 것이 실무의 기본입니다!
-  if (!confirm("정말 이 회원을 삭제하시겠습니까?")) {
-    return; // 취소를 누르면 함수를 바로 종료합니다.
-  }
-
-  // 백엔드의 DELETE API 호출 (이전에 user_router.js에 만들어둔 router.delete("/users/:no")가 응답합니다)
-  let result = await fetch(`/api/users/${selectNo}`, {
-    method: "DELETE", // 기본값인 GET 대신 DELETE 메서드를 명시해줍니다.
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
-
-  // 백엔드(user_service.js)에서 성공하면 status: "success"를 보내주기로 했었죠?
-  if (result.status === "success") {
-    alert("정상적으로 삭제되었습니다.");
-    // 삭제가 완료되었으니, 더 이상 존재하지 않는 상세페이지에 머물지 않고 전체 목록으로 쫓아냅니다!
-    goToList();
-  } else {
-    alert("삭제 중 오류가 발생했습니다.");
-  }
-};
-
 // [생명주기 훅]
 // 화면이 브라우저에 부착되기 직전에, 아까 URL에서 꺼내둔 번호(selectNo)를
 // API 호출 함수에 넣어서 실행시킵니다.
