@@ -1,9 +1,30 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+// ==========================================
+// 1. 필요한 모듈 및 컴포넌트 불러오기
+// ==========================================
+// Vue 3의 핵심 함수인 createApp을 불러옵니다.
+import { createApp } from "vue";
 
-const app = createApp(App)
+// 모든 화면의 껍데기(부모)가 되는 최상위 컴포넌트 App.vue를 불러옵니다.
+import App from "./App.vue";
 
-app.use(router)
+// 우리가 방금 아래에서 설정한 프론트엔드 라우터(index.js)를 불러옵니다.
+// 폴더까지만('/router') 지정하면, 그 안의 index.js를 자동으로 찾아서 가져옵니다.
+import router from "./router";
 
-app.mount('#app')
+// ==========================================
+// 2. Vue 앱 인스턴스 생성 및 플러그인 장착
+// ==========================================
+// App.vue를 뿌리로 삼아서 새로운 Vue 애플리케이션 객체를 만듭니다.
+const app = createApp(App);
+
+// 방금 불러온 router를 Vue 앱에 장착합니다.
+// 이제 프로젝트 내의 모든 컴포넌트에서 라우터 기능(<router-link>, <router-view> 등)을 쓸 수 있습니다.
+app.use(router);
+
+// ==========================================
+// 3. 앱 마운트 (Mount)
+// ==========================================
+// 마운트란? 만든 Vue 앱을 실제 HTML 문서의 특정 위치에 '부착'하는 작업입니다.
+// index.html 파일을 열어보면 <div id="app"></div> 라는 텅 빈 태그가 있는데,
+// 그 빈 공간에 우리가 만든 Vue 화면들을 밀어 넣어서 화면을 그리게 됩니다!
+app.mount("#app");
